@@ -3,7 +3,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Install LiteLLM with latest version and dependencies
-RUN pip install --no-cache-dir litellm[proxy]
+RUN pip install --no-cache-dir litellm[proxy] prisma psycopg2-binary
 
 # Expose port
 EXPOSE 8000
