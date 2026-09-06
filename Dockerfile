@@ -1,10 +1,8 @@
-FROM ghcr.io/berriai/litellm:main
+FROM ghcr.io/berriai/litellm:main-stable
 
-# Base image hardcodes its command in ENTRYPOINT (shell form), which swallows
-# any CMD args passed to it. Clear it so our CMD below actually runs.
-ENTRYPOINT []
-
-# Config is mounted from K8s ConfigMap in production
+# This image's ENTRYPOINT is docker/prod_entrypoint.sh, which invokes litellm
+# itself and forwards CMD as args - so CMD here should be args only, not the
+# "litellm" binary name.
 EXPOSE 8000
 
-CMD ["litellm", "--config", "/app/config/config.yaml", "--port", "8000"]
+CMD ["--config", "/app/config/config.yaml", "--port", "8000"]
